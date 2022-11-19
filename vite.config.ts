@@ -12,5 +12,8 @@ export default defineConfig({
     outDir: '../dist',
     emptyOutDir: true,
   },
-  plugins: [react()]
+  plugins: [react()],
+  resolve: {
+    alias: [{ find: '@', replacement: '/src' }],
+  }
 })
