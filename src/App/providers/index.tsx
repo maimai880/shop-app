@@ -4,8 +4,8 @@ import styles from './appProvider.module.css'
 import { Button, ChakraProvider, Spinner } from '@chakra-ui/react'
 
 type AppProviderProps = {
-  children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   return (
@@ -13,7 +13,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       <React.Suspense
         fallback={
           <div className={styles.fallback}>
-            <Spinner size='xl' />
+            <Spinner size="xl" />
           </div>
         }
       >
@@ -27,12 +27,12 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
 const ErrorFallback = () => {
   return (
-    <div
-      className={styles.errorFallback}
-      role='alert'
-    >
+    <div className={styles.errorFallback} role="alert">
       <h2>エラーが発生しました</h2>
-      <Button colorScheme='red' onClick={() => window.location.assign(window.location.origin)}>
+      <Button
+        colorScheme="red"
+        onClick={() => window.location.assign(window.location.origin)}
+      >
         Refresh
       </Button>
     </div>
