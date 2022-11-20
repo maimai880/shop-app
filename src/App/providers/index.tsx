@@ -2,6 +2,7 @@ import React from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import styles from './appProvider.module.css'
 import { Button, ChakraProvider, Spinner } from '@chakra-ui/react'
+import { BrowserRouter } from 'react-router-dom'
 
 type AppProviderProps = {
   children: React.ReactNode
@@ -18,7 +19,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         }
       >
         <ErrorBoundary FallbackComponent={ErrorFallback}>
-          {children}
+          <BrowserRouter>{children}</BrowserRouter>
         </ErrorBoundary>
       </React.Suspense>
     </ChakraProvider>
