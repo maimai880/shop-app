@@ -1,23 +1,8 @@
-.fallback {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-}
-
 .errorFallback {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
     width: 100vw;
     height: 100vh;
     color: #f56565;
-}
-.errorFallback h2 {
-    font-size: 1.125rem;
-    font-weight: 600;
 }
 .errorFallback button {
     margin-top: 1rem;

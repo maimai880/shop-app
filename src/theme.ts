@@ -9,7 +9,8 @@ export const theme = extendTheme({
       },
       html: {
         height: '100%',
-        overflowY: 'scroll'
+        overflowY: 'scroll',
+        overflowX: 'hidden'
       }
     }
   }

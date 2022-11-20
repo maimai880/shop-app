@@ -1,7 +1,13 @@
 import React from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import styles from './appProvider.module.css'
-import { Button, ChakraProvider, Spinner } from '@chakra-ui/react'
+import {
+  Button,
+  Center,
+  ChakraProvider,
+  Heading,
+  Spinner
+} from '@chakra-ui/react'
 import { BrowserRouter } from 'react-router-dom'
 import { theme } from '@/theme'
 
@@ -14,9 +20,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     <ChakraProvider theme={theme}>
       <React.Suspense
         fallback={
-          <div className={styles.fallback}>
+          <Center width="100vw" height="100vh">
             <Spinner size="xl" />
-          </div>
+          </Center>
         }
       >
         <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -29,14 +35,14 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
 const ErrorFallback = () => {
   return (
-    <div className={styles.errorFallback} role="alert">
-      <h2>エラーが発生しました</h2>
+    <Center className={styles.errorFallback} role="alert">
+      <Heading size="md">エラーが発生しました</Heading>
       <Button
         colorScheme="red"
         onClick={() => window.location.assign(window.location.origin)}
       >
         Refresh
       </Button>
-    </div>
+    </Center>
   )
 }
