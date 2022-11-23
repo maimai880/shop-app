@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './home.module.css'
 import { Flex, Heading } from '@chakra-ui/react'
+import { ProductsList } from '@/features/products/components/ProductsList'
 
 interface Props {}
 
@@ -16,7 +17,9 @@ export const Home: React.FC<Props> = () => {
           </Heading>
         </Flex>
       </header>
-      <main className={styles.main}></main>
+      <main className={styles.main}>
+        <ProductsList />
+      </main>
     </>
   )
 }
