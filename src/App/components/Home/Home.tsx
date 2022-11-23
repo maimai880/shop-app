@@ -10,7 +10,7 @@ export const Home: React.FC<Props> = () => {
     <>
       <header className={styles.header}>
         <Flex className={styles.headerContainer}>
-          <Heading size="md" textAlign="center" color="#0aa91d">
+          <Heading size="md" textAlign="center" color="#077915">
             SHOP
             <br />
             APP

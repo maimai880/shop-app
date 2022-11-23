@@ -8,6 +8,7 @@ import {
   useNumberInput
 } from '@chakra-ui/react'
 import { ProductType } from '@/features/products/types'
+import styles from './products.module.css'
 
 interface Props {
   data: ProductType
@@ -31,8 +32,9 @@ export const Product: FC<Props> = ({ data }) => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
+      overflow="hidden"
     >
-      <img src={data.image} alt={data.name} />
+      <img src={data.image} alt={data.name} className={styles.image} />
 
       <Text fontSize="md" color="#666" align="center">
         {data.name}
@@ -43,16 +45,16 @@ export const Product: FC<Props> = ({ data }) => {
       </Text>
 
       <HStack maxW="80%">
-        <Button {...getDecrementButtonProps()} rounded="full">
+        <Button {...getDecrementButtonProps()} rounded="full" size="sm">
           -
         </Button>
-        <Input {...getInputProps()} />
-        <Button {...getIncrementButtonProps()} rounded="full">
+        <Input {...getInputProps()} size="sm" />
+        <Button {...getIncrementButtonProps()} rounded="full" size="sm">
           +
         </Button>
       </HStack>
 
-      <Button margin="15px" bg="#0aa91d" color="white">
+      <Button margin="15px" bg="#077915" color="white">
         ADD TO CART
       </Button>
     </Flex>

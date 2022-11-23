@@ -17,7 +17,7 @@ export const ProductsList = () => {
   }
 
   return (
-    <SimpleGrid columns={[1, 2, 3, 4]} spacing="30px" className={styles.list}>
+    <SimpleGrid columns={[1, 2, 3, 4]} spacing="32px" className={styles.list}>
       {productsQuery.data.map((p) => (
         <Product data={p} key={p.name} />
       ))}
