@@ -1,1 +1,104 @@
-export const auth = []
+import { rest } from 'msw'
+import { db, persistDb } from '@/mocks/db'
+import { nanoid } from 'nanoid'
+
+export const auth = [
+  rest.get('/auth/me', (req, res, ctx) => {
+    try {
+      if (!req.cookies.session) throw new Error('You are not logged in yet')
+
+      return res(
+        ctx.json(
+          db.user.findFirst({
+            where: {
+              name: {
+                equals: db.session.findFirst({
+                  where: { id: { equals: req.cookies.session } }
+                })?.username
+              }
+            }
+          })
+        )
+      )
+    } catch (e: any) {
+      return res(
+        ctx.status(400),
+        ctx.json({ message: e?.message || 'Server Error' })
+      )
+    }
+  }),
+  rest.post('/auth/register', async (req, res, ctx) => {
+    try {
+      if (req.cookies.session) throw new Error('You are already logged in')
+
+      const userObj = await req.json()
+
+      if (!(userObj.name && userObj.password)) {
+        throw new Error('The login data is wrong')
+      } else if (
+        db.user.findFirst({ where: { name: { equals: userObj.name } } })
+      ) {
+        throw new Error('The user already exists')
+      }
+
+      const sessionId = nanoid()
+      db.user.create({ ...userObj, cart: '' })
+      db.session.create({ id: sessionId, username: userObj.name })
+      persistDb('user')
+      persistDb('session')
+
+      return res(ctx.body(sessionId))
+    } catch (e: any) {
+      return res(
+        ctx.status(400),
+        ctx.json({ message: e?.message || 'Server Error' })
+      )
+    }
+  }),
+  rest.post('/auth/login', async (req, res, ctx) => {
+    try {
+      if (req.cookies.session) throw new Error('You are already logged in')
+
+      const userObj = await req.json()
+
+      if (!(userObj.name && userObj.password)) {
+        throw new Error('The login data is wrong')
+      } else if (
+        !db.user.findFirst({
+          where: {
+            name: { equals: userObj.name },
+            password: { equals: userObj.password }
+          }
+        })
+      ) {
+        throw new Error('The user is not exist')
+      }
+
+      const sessionId = nanoid()
+      db.session.create({ id: sessionId, username: userObj.name })
+      persistDb('session')
+
+      return res(ctx.body(sessionId))
+    } catch (e: any) {
+      return res(
+        ctx.status(400),
+        ctx.json({ message: e?.message || 'Server Error' })
+      )
+    }
+  }),
+  rest.post('/auth/logout', (req, res, ctx) => {
+    try {
+      if (!req.cookies.session) throw new Error('You are not logged in yet')
+
+      db.session.delete({ where: { id: { equals: req.cookies.session } } })
+      persistDb('session')
+
+      return res(ctx.status(204))
+    } catch (e: any) {
+      return res(
+        ctx.status(400),
+        ctx.json({ message: e?.message || 'Server Error' })
+      )
+    }
+  })
+]
