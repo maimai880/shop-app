@@ -1,13 +1,9 @@
 import { axios } from '@/lib/axios'
-import { User } from '@/features/auth/types'
-import Cookies from 'js-cookie'
-import { UserStateModule } from '@/features/auth/states/userState'
+import { LoginData, User } from '@/features/auth/types'
 
-export const register = async (data: User) => {
-  const sessionId = await axios.post<string>('/auth/register', data)
-
-  if (typeof sessionId === 'string') {
-    Cookies.set('session', sessionId, { secure: true })
-    UserStateModule.set(data)
-  }
+export const register = (data: LoginData) => {
+  return axios.post<LoginData, { sessionId: string; user: User }>(
+    '/auth/register',
+    data
+  )
 }

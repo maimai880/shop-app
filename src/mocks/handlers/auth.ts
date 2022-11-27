@@ -42,12 +42,16 @@ export const auth = [
       }
 
       const sessionId = nanoid()
-      db.user.create({ ...userObj, cart: '' })
-      db.session.create({ id: sessionId, username: userObj.name })
+      const user = { ...userObj, cart: '' }
+
+      db.user.create(user)
+      db.session.create({ id: sessionId, username: user.name })
       persistDb('user')
       persistDb('session')
 
-      return res(ctx.body(sessionId))
+      return res(
+        ctx.json({ sessionId, user: { name: user.name, cart: user.cart } })
+      )
     } catch (e: any) {
       return res(
         ctx.status(400),
@@ -60,17 +64,16 @@ export const auth = [
       if (req.cookies.session) throw new Error('You are already logged in')
 
       const userObj = await req.json()
+      const user = db.user.findFirst({
+        where: {
+          name: { equals: userObj.name },
+          password: { equals: userObj.password }
+        }
+      })
 
       if (!(userObj.name && userObj.password)) {
         throw new Error('The login data is wrong')
-      } else if (
-        !db.user.findFirst({
-          where: {
-            name: { equals: userObj.name },
-            password: { equals: userObj.password }
-          }
-        })
-      ) {
+      } else if (!user) {
         throw new Error('The user is not exist')
       }
 
@@ -78,7 +81,9 @@ export const auth = [
       db.session.create({ id: sessionId, username: userObj.name })
       persistDb('session')
 
-      return res(ctx.body(sessionId))
+      return res(
+        ctx.json({ sessionId, user: { name: user.name, cart: user.cart } })
+      )
     } catch (e: any) {
       return res(
         ctx.status(400),

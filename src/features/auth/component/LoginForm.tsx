@@ -1,7 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { User } from '@/features/auth/types'
-import { login } from '@/features/auth/api/login'
-import { register as registerUser } from '@/features/auth/api/register'
+import { LoginData } from '@/features/auth/types'
 import {
   Button,
   FormControl,
@@ -11,6 +9,7 @@ import {
 } from '@chakra-ui/react'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
+import { UserStateModule } from '@/features/auth/states/userState'
 
 export const LoginForm = () => {
   const {
@@ -18,13 +17,13 @@ export const LoginForm = () => {
     register,
     setError,
     formState: { errors, isSubmitting }
-  } = useForm<User>()
+  } = useForm<LoginData>()
 
   const navigate = useNavigate()
 
-  const onSubmit = async (value: User) => {
-    login(value)
-      .catch(() => registerUser(value))
+  const onSubmit = async (value: LoginData) => {
+    UserStateModule.login(value)
+      .catch(() => UserStateModule.register(value))
       .finally(() => {
         if (Cookies.get('session')) {
           navigate('/')
