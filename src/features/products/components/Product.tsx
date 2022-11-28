@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react'
 import { ProductType } from '@/features/products/types'
 import styles from './products.module.css'
+import { CartStateModule } from '@/features/cart/states/CartState'
 
 interface Props {
   data: ProductType
@@ -25,14 +26,18 @@ export const Product: FC<Props> = ({ data }) => {
     getInputProps,
     getIncrementButtonProps,
     getDecrementButtonProps,
-    value
+    valueAsNumber
   } = useNumberInput({
     step: 1,
-    defaultValue: 0,
-    min: 0
+    defaultValue: 1,
+    min: 1
   })
 
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const addToCart = () => {
+    CartStateModule.add(data.name, valueAsNumber)
+  }
 
   return (
     <>
@@ -74,7 +79,7 @@ export const Product: FC<Props> = ({ data }) => {
           </Button>
         </HStack>
 
-        <Button margin="15px" bg="#077915" color="white">
+        <Button onClick={addToCart} margin="15px" bg="#077915" color="white">
           ADD TO CART
         </Button>
       </Flex>

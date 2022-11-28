@@ -1,9 +1,9 @@
 import { AppProvider } from './provider'
 import { AppRoutes } from './router'
-import { useAutoLogin } from '@/features/auth/hooks/useAutoLogin'
+import { useAutoLoginAndSetCart } from '@/features/auth/hooks/useAutoLoginAndSetCart'
 
 export const App = () => {
-  useAutoLogin()
+  useAutoLoginAndSetCart()
 
   return (
     <AppProvider>

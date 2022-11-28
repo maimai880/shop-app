@@ -9,7 +9,8 @@ import {
 } from '@chakra-ui/react'
 import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
-import { UserStateModule } from '@/features/auth/states/userState'
+import { login } from '../api/login'
+import { register as registerUser } from '../api/register'
 
 export const LoginForm = () => {
   const {
@@ -22,8 +23,8 @@ export const LoginForm = () => {
   const navigate = useNavigate()
 
   const onSubmit = async (value: LoginData) => {
-    UserStateModule.login(value)
-      .catch(() => UserStateModule.register(value))
+    login(value)
+      .catch(() => registerUser(value))
       .finally(() => {
         if (Cookies.get('session')) {
           navigate('/')

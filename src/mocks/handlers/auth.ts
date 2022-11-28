@@ -1,6 +1,7 @@
 import { rest } from 'msw'
 import { db, persistDb } from '@/mocks/db'
 import { nanoid } from 'nanoid'
+import { RegisterData } from '@/features/auth/types'
 
 export const auth = [
   rest.get('/auth/me', (req, res, ctx) => {
@@ -31,7 +32,7 @@ export const auth = [
     try {
       if (req.cookies.session) throw new Error('You are already logged in')
 
-      const userObj = await req.json()
+      const userObj: RegisterData = await req.json()
 
       if (!(userObj.name && userObj.password)) {
         throw new Error('The login data is wrong')
@@ -42,15 +43,17 @@ export const auth = [
       }
 
       const sessionId = nanoid()
-      const user = { ...userObj, cart: '' }
 
-      db.user.create(user)
-      db.session.create({ id: sessionId, username: user.name })
+      db.user.create(userObj)
+      db.session.create({ id: sessionId, username: userObj.name })
       persistDb('user')
       persistDb('session')
 
       return res(
-        ctx.json({ sessionId, user: { name: user.name, cart: user.cart } })
+        ctx.json({
+          sessionId,
+          user: { name: userObj.name, cart: userObj.cart }
+        })
       )
     } catch (e: any) {
       return res(
