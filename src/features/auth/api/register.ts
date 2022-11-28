@@ -6,7 +6,7 @@ import { UserStateModule } from '@/features/auth/states/userState'
 export const register = async (data: LoginData) => {
   const res = await axios.post<RegisterData, { sessionId: string; user: User }>(
     '/auth/register',
-    { ...data, cart: Cookies.get('cart') }
+    { ...data, cart: Cookies.get('cart') || '[]' }
   )
 
   Cookies.set('session', res.sessionId)

@@ -4,15 +4,22 @@ import { Cart } from '@/features/cart/types'
 import Cookies from 'js-cookie'
 import { userState } from '@/features/auth/states/userState'
 import { updateCart } from '@/features/cart/api/updateCart'
+import { ProductType } from '@/features/products/types'
 
-export const cartState = atom<Cart>({ key: 'cart', default: {} })
+export const cartState = atom<Cart>({ key: 'cart', default: [] })
 
 export const CartStateModule = {
   set: (cart: Cart) => setRecoil(cartState, cart),
-  add: (key: string, amount: number) => {
+  add: (item: ProductType, amount: number) => {
     setRecoil(cartState, (pre) => {
-      const newCart = { ...pre }
-      newCart[key] = (newCart[key] || 0) + amount
+      const newCart = [...pre]
+
+      const targetCartValueIndex = pre.findIndex((v) => v.item.id === item.id)
+      if (targetCartValueIndex !== -1) {
+        newCart[targetCartValueIndex].amount += amount
+      } else {
+        newCart.push({ item, amount })
+      }
 
       if (getRecoil(userState)) {
         updateCart(newCart)
@@ -23,10 +30,9 @@ export const CartStateModule = {
       return newCart
     })
   },
-  remove: (key: string) => {
+  remove: (id: number) => {
     setRecoil(cartState, (pre) => {
-      const newCart = { ...pre }
-      delete newCart[key]
+      const newCart = pre.filter((v) => v.item.id !== id)
 
       if (getRecoil(userState)) {
         updateCart(newCart)

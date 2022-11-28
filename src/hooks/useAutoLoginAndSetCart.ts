@@ -14,7 +14,7 @@ export const useAutoLoginAndSetCart = () => {
         UserStateModule.set(user)
         CartStateModule.set(JSON.parse(user.cart))
       } else {
-        CartStateModule.set(JSON.parse(Cookies.get('cart') || '{}'))
+        CartStateModule.set(JSON.parse(Cookies.get('cart') || '[]'))
       }
     })()
   }, [worker.start])

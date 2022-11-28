@@ -36,7 +36,7 @@ export const Product: FC<Props> = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const addToCart = () => {
-    CartStateModule.add(data.name, valueAsNumber)
+    CartStateModule.add(data, valueAsNumber)
   }
 
   return (
