@@ -55,11 +55,20 @@ export const CartPreview = () => {
 
         <PopoverBody w="360px">
           <Box w="360px" h="320px" overflow="hidden">
-            <List w="100%" h="100%" overflowY="scroll">
-              {cart.map((v) => (
-                <ListItemComponent value={v} key={v.item.id} />
-              ))}
-            </List>
+            {cart.length ? (
+              <List w="100%" h="100%" overflowY="scroll">
+                {cart.map((v) => (
+                  <ListItemComponent value={v} key={v.item.id} />
+                ))}
+              </List>
+            ) : (
+              <>
+                <Image src="https://res.cloudinary.com/sivadass/image/upload/v1495427934/icons/empty-cart.png" />
+                <Text align="center" color="#999">
+                  Your cart is empty!
+                </Text>
+              </>
+            )}
           </Box>
 
           <Button onClick={onCheckout} bg="#fc7710" color="white" w="100%">

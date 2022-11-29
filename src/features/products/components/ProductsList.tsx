@@ -1,4 +1,12 @@
-import { Center, SimpleGrid, Spinner } from '@chakra-ui/react'
+import {
+  Center,
+  Heading,
+  Image,
+  SimpleGrid,
+  Spinner,
+  Text,
+  VStack
+} from '@chakra-ui/react'
 import { useProducts } from '@/features/products/api/getProducts'
 import { Product } from '@/features/products/components/Product'
 import styles from './products.module.css'
@@ -15,8 +23,16 @@ export const ProductsList = () => {
         <Spinner size="xl" />
       </Center>
     )
-  } else if (!productsQuery.data) {
-    return null
+  } else if (!productsQuery.data?.length) {
+    return (
+      <Center>
+        <VStack>
+          <Image src="https://res.cloudinary.com/sivadass/image/upload/v1494699523/icons/bare-tree.png" />
+          <Heading size="lg">Sorry, no products matched your search!</Heading>
+          <Text color="#999">Enter a different keyword and try.</Text>
+        </VStack>
+      </Center>
+    )
   }
 
   return (
