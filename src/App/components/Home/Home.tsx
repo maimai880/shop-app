@@ -4,6 +4,7 @@ import { Flex, Heading } from '@chakra-ui/react'
 import { ProductsList } from '@/features/products/components/ProductsList'
 import { AuthMenu } from '@/features/auth/component/authMenu'
 import { CartInformation } from '@/features/cart/components/cartInformation'
+import { CartPreview } from '@/features/cart/components/CartPreview'
 
 interface Props {}
 
@@ -24,6 +25,8 @@ export const Home: React.FC<Props> = () => {
           </Heading>
 
           <CartInformation />
+          <CartPreview />
+
           <AuthMenu />
         </Flex>
       </header>
