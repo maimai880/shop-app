@@ -8,7 +8,7 @@ export const getProducts = ({
 }: {
   query?: string
 }): Promise<ProductType[]> => {
-  return axios.get('/products')
+  return axios.get(`/products?q=${query}`)
 }
 
 type QueryFnType = typeof getProducts

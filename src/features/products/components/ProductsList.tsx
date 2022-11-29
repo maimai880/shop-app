@@ -2,9 +2,12 @@ import { Center, SimpleGrid, Spinner } from '@chakra-ui/react'
 import { useProducts } from '@/features/products/api/getProducts'
 import { Product } from '@/features/products/components/Product'
 import styles from './products.module.css'
+import { useRecoilValue } from 'recoil'
+import { productSearchQueryState } from '@/features/products/states/productSearchQuery'
 
 export const ProductsList = () => {
-  const productsQuery = useProducts()
+  const query = useRecoilValue(productSearchQueryState)
+  const productsQuery = useProducts({ query })
 
   if (productsQuery.isLoading) {
     return (
