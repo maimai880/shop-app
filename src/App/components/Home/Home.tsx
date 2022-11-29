@@ -3,6 +3,7 @@ import styles from './home.module.css'
 import { Flex, Heading } from '@chakra-ui/react'
 import { ProductsList } from '@/features/products/components/ProductsList'
 import { AuthMenu } from '@/features/auth/component/authMenu'
+import { CartInformation } from '@/features/cart/components/cartInformation'
 
 interface Props {}
 
@@ -21,6 +22,8 @@ export const Home: React.FC<Props> = () => {
             <br />
             APP
           </Heading>
+
+          <CartInformation />
           <AuthMenu />
         </Flex>
       </header>
