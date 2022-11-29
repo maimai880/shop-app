@@ -1,12 +1,12 @@
-import React from 'react'
+import { FC, ReactNode, Suspense } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
-import styles from './appProvider.module.css'
 import {
   Button,
   Center,
   ChakraProvider,
   Heading,
-  Spinner
+  Spinner,
+  VStack
 } from '@chakra-ui/react'
 import { BrowserRouter } from 'react-router-dom'
 import { theme } from '@/theme'
@@ -15,16 +15,16 @@ import { queryClient } from '@/lib/react-query'
 import { RecoilRoot } from 'recoil'
 import RecoilNexus from 'recoil-nexus'
 
-type AppProviderProps = {
-  children: React.ReactNode
+type Props = {
+  children: ReactNode
 }
 
-export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
+export const AppProvider: FC<Props> = ({ children }) => {
   return (
     <ChakraProvider theme={theme}>
-      <React.Suspense
+      <Suspense
         fallback={
-          <Center width="100vw" height="100vh">
+          <Center w="100%" h="100%">
             <Spinner size="xl" />
           </Center>
         }
@@ -39,21 +39,25 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             </QueryClientProvider>
           </BrowserRouter>
         </ErrorBoundary>
-      </React.Suspense>
+      </Suspense>
     </ChakraProvider>
   )
 }
 
 const ErrorFallback = () => {
   return (
-    <Center className={styles.errorFallback} role="alert">
-      <Heading size="md">エラーが発生しました</Heading>
-      <Button
-        colorScheme="red"
-        onClick={() => window.location.assign(window.location.origin)}
-      >
-        Refresh
-      </Button>
+    <Center role="alert" w="100%" h="100%">
+      <VStack spacing={3}>
+        <Heading size="md" color="#f56565">
+          エラーが発生しました
+        </Heading>
+        <Button
+          onClick={() => window.location.assign(window.location.origin)}
+          colorScheme="red"
+        >
+          Refresh
+        </Button>
+      </VStack>
     </Center>
   )
 }

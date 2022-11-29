@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { useRecoilValue } from 'recoil'
 import { cartInformationState } from '@/features/cart/states/CartState'
 import { Table, TableContainer, Tbody, Td, Tr } from '@chakra-ui/react'
@@ -10,24 +10,38 @@ export const CartInformation: React.FC<Props> = (props) => {
 
   return (
     <TableContainer>
-      <Table size="sm" variant="unstyled">
+      <Table
+        size="sm"
+        variant="unstyled"
+        fontSize={14}
+        color="green"
+        textAlign="right"
+      >
         <Tbody>
           <Tr>
-            <Td>No. of items</Td>
-            <Td>:</Td>
-            <Td textAlign="right">
+            <Cell>No. of items</Cell>
+            <Cell>:</Cell>
+            <Cell>
               <strong>{cartInformation.quantity || 0}</strong>
-            </Td>
+            </Cell>
           </Tr>
           <Tr>
-            <Td>Sub Total</Td>
-            <Td>:</Td>
-            <Td textAlign="right">
+            <Cell>Sub Total</Cell>
+            <Cell>:</Cell>
+            <Cell>
               <strong>{cartInformation.total}</strong>
-            </Td>
+            </Cell>
           </Tr>
         </Tbody>
       </Table>
     </TableContainer>
+  )
+}
+
+const Cell = ({ children }: { children: ReactNode }) => {
+  return (
+    <Td p="0 4px" textAlign="right">
+      {children}
+    </Td>
   )
 }

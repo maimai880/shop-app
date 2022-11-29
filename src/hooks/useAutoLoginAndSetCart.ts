@@ -17,5 +17,7 @@ export const useAutoLoginAndSetCart = () => {
         CartStateModule.set(JSON.parse(Cookies.get('cart') || '[]'))
       }
     })()
-  }, [worker.start])
+  }, [
+    worker.start // mswサーバーが起動したタイミングで実行
+  ])
 }

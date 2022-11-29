@@ -18,10 +18,29 @@ export const ProductSearchBar = () => {
       <Input
         value={value}
         onChange={handleChange}
-        w="50%"
+        display={['none', 'inline']}
         placeholder="Search for Vegetables and Fruits"
+        w="42%"
+        border="1px solid green !important"
+        rounded={0}
       />
-      <IconButton icon={<SearchIcon />} aria-label="search products" />
+      <IconButton
+        icon={<SearchIcon color="white" />}
+        aria-label="search products"
+        display={['none', 'inline']}
+        w="90px"
+        ml="0px !important"
+        mr={3}
+        colorScheme="green"
+        rounded={0}
+      />
+
+      <SearchIcon
+        display={['inline', 'none']}
+        h="100%"
+        w="auto"
+        color="green"
+      />
     </>
   )
 }

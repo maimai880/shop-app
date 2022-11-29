@@ -25,14 +25,21 @@ export const AuthMenu = () => {
 
   return (
     <Menu placement="bottom-end">
-      <MenuButton>
-        <IconButton
-          icon={<ReactSVG src="src/features/auth/assets/user-flat-icon.svg" />}
-          bg="transparent"
-          aria-label="open user menu"
-          fill="#077915"
-        />
-      </MenuButton>
+      <MenuButton
+        as={IconButton}
+        icon={
+          <ReactSVG
+            src="src/features/auth/assets/user-flat-icon.svg"
+            beforeInjection={(svg) => {
+              svg.style.height = '42px'
+              svg.style.width = '44px'
+              svg.style.fill = 'green'
+            }}
+          />
+        }
+        aria-label="open auth menu"
+        bg="transparent"
+      />
       <MenuList>
         <MenuArrow placement="top-end" />
 

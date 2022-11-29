@@ -27,9 +27,9 @@ export const CartStateModule = {
     setRecoil(cartState, (pre) => {
       const newCart = [...pre]
 
-      const targetCartValueIndex = pre.findIndex((v) => v.item.id === item.id)
-      if (targetCartValueIndex !== -1) {
-        newCart[targetCartValueIndex].amount += amount
+      const targetValueIndex = pre.findIndex((v) => v.item.id === item.id)
+      if (targetValueIndex !== -1) {
+        newCart[targetValueIndex].amount += amount
       } else {
         newCart.push({ item, amount })
       }

@@ -1,6 +1,5 @@
 import React from 'react'
-import styles from './home.module.css'
-import { Flex, Heading } from '@chakra-ui/react'
+import { Box, Center, Flex, Heading, VStack } from '@chakra-ui/react'
 import { ProductsList } from '@/features/products/components/ProductsList'
 import { AuthMenu } from '@/features/auth/component/authMenu'
 import { CartInformation } from '@/features/cart/components/cartInformation'
@@ -11,31 +10,54 @@ interface Props {}
 
 export const Home: React.FC<Props> = () => {
   return (
-    <>
-      <header className={styles.header}>
-        <Flex className={styles.headerContainer}>
-          <Heading
-            size="md"
-            textAlign="center"
-            color="#077915"
-            marginRight="auto"
-          >
-            SHOP
-            <br />
-            APP
-          </Heading>
+    <VStack>
+      <Center
+        as="header"
+        position="sticky"
+        top={0}
+        w="100%"
+        h={{ base: '68px', lg: '98px' }}
+        p={5}
+        bg="white"
+        boxShadow="0 8px 18px rgb(0 0 0 / 3%)"
+        zIndex={3}
+      >
+        <Flex as="nav" align="center" w="900px" h="100%">
+          <Box mr={{ base: 'auto', sm: '4%' }}>
+            <Heading
+              textAlign="center"
+              fontSize={30}
+              lineHeight={8}
+              color="green"
+            >
+              SHOP
+              <br />
+              APP
+            </Heading>
+          </Box>
 
           <ProductSearchBar />
 
-          <CartInformation />
-          <CartPreview />
+          <Box
+            display={{ base: 'none', lg: 'inline' }}
+            ml="auto"
+            overflow="visible"
+          >
+            <CartInformation />
+          </Box>
+          <Center ml={{ base: 3, sm: 'auto', md: 'auto', lg: 3 }}>
+            <CartPreview />
+          </Center>
 
-          <AuthMenu />
+          <Center ml={2}>
+            <AuthMenu />
+          </Center>
         </Flex>
-      </header>
-      <main className={styles.main}>
+      </Center>
+
+      <main>
         <ProductsList />
       </main>
-    </>
+    </VStack>
   )
 }

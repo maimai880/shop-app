@@ -1,9 +1,0 @@
-.errorFallback {
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    color: #f56565;
-}
-.errorFallback button {
-    margin-top: 1rem;
-}

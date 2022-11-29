@@ -13,6 +13,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
+  useDisclosure,
   VStack
 } from '@chakra-ui/react'
 import { useRecoilValue } from 'recoil'
@@ -34,19 +35,18 @@ export const CartPreview = () => {
     }
   }
 
+  const { onOpen, onClose, isOpen } = useDisclosure()
+
   return (
-    <Popover placement="bottom-end">
+    <Popover {...{ onOpen, onClose, isOpen }} placement="bottom-end">
       <PopoverTrigger>
         <IconButton
-          aria-label="open cart preview"
           icon={
-            <img
-              src="https://res.cloudinary.com/sivadass/image/upload/v1493548928/icons/bag.png"
-              width="100%"
-            />
+            <img src="https://res.cloudinary.com/sivadass/image/upload/v1493548928/icons/bag.png" />
           }
+          aria-label="open cart preview"
+          isActive={isOpen}
           bg="transparent"
-          height="100%"
         />
       </PopoverTrigger>
 

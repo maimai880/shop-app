@@ -5,6 +5,6 @@ import { resetRecoil, setRecoil } from 'recoil-nexus'
 export const userState = atom<null | User>({ key: 'user', default: null })
 
 export const UserStateModule = {
-  set: (user: User | null) => setRecoil(userState, user),
+  set: (user: User) => setRecoil(userState, user),
   reset: () => resetRecoil(userState)
 }
