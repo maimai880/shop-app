@@ -3,7 +3,6 @@ import {
   Box,
   Center,
   Flex,
-  Heading,
   IconButton,
   useDisclosure,
   VStack
@@ -14,6 +13,7 @@ import { CartInformation } from '@/features/cart/components/cartInformation'
 import { CartPreview } from '@/features/cart/components/CartPreview'
 import { ProductSearchBar } from '@/features/products/components/ProductSearchBar'
 import { ArrowBackIcon, SearchIcon } from '@chakra-ui/icons'
+import { Logo } from '@/component/logo'
 
 interface Props {}
 
@@ -47,17 +47,8 @@ export const Home: React.FC<Props> = () => {
             </>
           ) : (
             <>
-              <Box mr={{ base: 'auto', sm: '4%' }}>
-                <Heading
-                  textAlign="center"
-                  fontSize={30}
-                  lineHeight={8}
-                  color="green"
-                >
-                  SHOP
-                  <br />
-                  APP
-                </Heading>
+              <Box mr={{ base: 'auto', sm: 9 }}>
+                <Logo />
               </Box>
 
               <Box display={['none', 'inline']} maxW="500px" w="100%" mr={3}>
