@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   CloseButton,
-  Flex,
   IconButton,
   Image,
   List,
@@ -50,13 +49,27 @@ export const CartPreview = () => {
         />
       </PopoverTrigger>
 
-      <PopoverContent w="360px">
+      <PopoverContent w="360px" h="388px">
         <PopoverArrow />
 
-        <PopoverBody w="360px">
-          <Box w="360px" h="320px" overflow="hidden">
+        <PopoverBody p={0}>
+          <Box w="100%" h="320px" overflow="hidden">
             {cart.length ? (
-              <List w="100%" h="100%" overflowY="scroll">
+              <List
+                w="100%"
+                h="100%"
+                overflowY="scroll"
+                css={{
+                  '&::-webkit-scrollbar': {
+                    width: '8px',
+                    backgroundColor: `transparent`
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    borderRadius: '8px',
+                    backgroundColor: 'rgba(0, 0, 0, 0.1)'
+                  }
+                }}
+              >
                 {cart.map((v) => (
                   <ListItemComponent value={v} key={v.item.id} />
                 ))}
@@ -71,9 +84,16 @@ export const CartPreview = () => {
             )}
           </Box>
 
-          <Button onClick={onCheckout} bg="#fc7710" color="white" w="100%">
-            PROCEED TO CHECKOUT
-          </Button>
+          <Box p={3}>
+            <Button
+              onClick={onCheckout}
+              isDisabled={!cart.length}
+              w="100%"
+              colorScheme="orange"
+            >
+              PROCEED TO CHECKOUT
+            </Button>
+          </Box>
         </PopoverBody>
       </PopoverContent>
     </Popover>
@@ -84,30 +104,38 @@ const ListItemComponent = ({ value }: { value: Cart[number] }) => {
   const removeFromCart = () => CartStateModule.remove(value.item.id)
 
   return (
-    <ListItem _hover={{ bg: '#077915' }}>
-      <Flex justifyContent="space-between">
-        <Image src={value.item.image} width="48px" height="auto" />
+    <ListItem
+      display="flex"
+      alignItems="center"
+      w="100%"
+      p={2}
+      _hover={{ bg: 'rgba(147,220,156,.15)' }}
+    >
+      <Image src={value.item.image} width="48px" height="auto" />
 
-        <VStack>
-          <Text color="#999">{value.item.name}</Text>
-          <Text as="strong" color="#999">
-            ￥{value.item.price}
-          </Text>
-        </VStack>
+      <VStack flexGrow={1} align="left" spacing={0} ml={2}>
+        <Text color="#999">{value.item.name}</Text>
+        <Text as="strong" color="#999">
+          ￥{value.item.price}
+        </Text>
+      </VStack>
 
-        <VStack>
-          <Text color="#999">
-            {value.amount} No{value.amount > 1 && 's'}.
-          </Text>
-          <Text as="strong">￥{value.item.price}</Text>
-        </VStack>
+      <VStack spacing={0} ml={2}>
+        <Text color="#999" textAlign="right">
+          {value.amount} No{value.amount > 1 && 's'}.
+        </Text>
+        <Text as="strong" textAlign="right">
+          ￥{value.item.price}
+        </Text>
+      </VStack>
 
-        <IconButton
-          onClick={removeFromCart}
-          aria-label="remove item from cart"
-          icon={<CloseButton />}
-        />
-      </Flex>
+      <IconButton
+        onClick={removeFromCart}
+        aria-label="remove item from cart"
+        icon={<CloseButton color="#ccc" />}
+        ml={3}
+        bg="transparent"
+      />
     </ListItem>
   )
 }
