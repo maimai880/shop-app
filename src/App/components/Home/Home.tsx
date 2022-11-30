@@ -33,7 +33,7 @@ export const Home: React.FC<Props> = () => {
         boxShadow="0 8px 18px rgb(0 0 0 / 3%)"
         zIndex={3}
       >
-        <Flex as="nav" align="center" w="900px" h="100%">
+        <Flex as="nav" align="center" maxW="900px" w="100%" h="100%">
           {isOpenSearchHeader ? (
             <>
               <IconButton
@@ -71,11 +71,7 @@ export const Home: React.FC<Props> = () => {
                 />
               </Box>
 
-              <Box
-                display={{ base: 'none', lg: 'inline' }}
-                ml="auto"
-                overflow="visible"
-              >
+              <Box display={{ base: 'none', lg: 'inline' }} ml="auto">
                 <CartInformation />
               </Box>
               <Center ml={{ base: 3, sm: 'auto', md: 'auto', lg: 3 }}>

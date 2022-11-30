@@ -7,13 +7,13 @@ export const theme = extendTheme({
       html: {
         width: '100%',
         height: '100%',
-        overflowY: 'scroll',
-        overflowX: 'hidden'
+        overflow: 'hidden'
       },
       body: {
         width: '100%',
         height: '100%',
         margin: 0,
+        overflowY: 'scroll',
         backgroundColor: '#f5f5f5',
         fontFamily:
           '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',

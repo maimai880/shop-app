@@ -3,6 +3,7 @@ import {
   Button,
   Flex,
   HStack,
+  Image,
   Input,
   Modal,
   ModalCloseButton,
@@ -14,7 +15,6 @@ import {
   useNumberInput
 } from '@chakra-ui/react'
 import { ProductType } from '@/features/products/types'
-import styles from './products.module.css'
 import { CartStateModule } from '@/features/cart/states/CartState'
 
 interface Props {
@@ -33,58 +33,62 @@ export const Product: FC<Props> = ({ data }) => {
     min: 1
   })
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
-
   const addToCart = () => {
     CartStateModule.add(data, valueAsNumber)
   }
 
+  const { isOpen: isImageModalOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <>
       <Flex
-        bg="white"
         flexDirection="column"
         alignItems="center"
-        justifyContent="center"
         overflow="hidden"
+        bg="white"
+        _hover={{ boxShadow: 'lg' }}
       >
-        <img
+        <Image
+          onClick={onOpen}
           src={data.image}
           alt={data.name}
-          className={styles.image}
-          onClick={onOpen}
+          _hover={{
+            transition: 'transform .3s ease-in',
+            transform: 'scale(1.05)'
+          }}
+          cursor="zoom-in"
         />
 
         <Text fontSize="md" color="#666" align="center">
           {data.name}
         </Text>
 
-        <Text
-          fontSize="lg"
-          as="b"
-          color="#666"
-          align="center"
-          marginBottom="5px"
-        >
+        <Text as="strong" mb={1} fontSize="xl" color="#666">
           ￥{data.price}
         </Text>
 
-        <HStack maxW="80%">
-          <Button {...getDecrementButtonProps()} rounded="full" size="sm">
+        <HStack maxW="65%">
+          <Button {...getDecrementButtonProps()} size="sm" rounded="full">
             -
           </Button>
-          <Input {...getInputProps()} size="sm" />
-          <Button {...getIncrementButtonProps()} rounded="full" size="sm">
+          <Input {...getInputProps()} size="sm" px={0} textAlign="center" />
+          <Button {...getIncrementButtonProps()} size="sm" rounded="full">
             +
           </Button>
         </HStack>
 
-        <Button onClick={addToCart} margin="15px" bg="#077915" color="white">
+        <Button
+          onClick={addToCart}
+          w="80%"
+          m={3}
+          colorScheme="green"
+          rounded={0}
+        >
           ADD TO CART
         </Button>
       </Flex>
 
-      <ImageModal product={data} {...{ isOpen, onClose }} />
+      <ImageModal product={data} isOpen={isImageModalOpen} {...{ onClose }} />
     </>
   )
 }
@@ -97,8 +101,13 @@ interface ImageModalProps {
 
 const ImageModal: FC<ImageModalProps> = (props) => {
   return (
-    <Modal isOpen={props.isOpen} onClose={props.onClose}>
-      <ModalOverlay />
+    <Modal
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      isCentered
+      preserveScrollBarGap
+    >
+      <ModalOverlay overflowY="scroll" />
       <ModalContent>
         <ModalCloseButton />
         <img src={props.product.image} />
