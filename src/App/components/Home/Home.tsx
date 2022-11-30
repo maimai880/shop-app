@@ -28,7 +28,7 @@ export const Home: React.FC<Props> = () => {
         top={0}
         w="100%"
         h={{ base: '68px', lg: '98px' }}
-        p={5}
+        p={{ base: 4, lg: 5 }}
         bg="white"
         boxShadow="0 8px 18px rgb(0 0 0 / 3%)"
         zIndex={3}
@@ -48,7 +48,10 @@ export const Home: React.FC<Props> = () => {
           ) : (
             <>
               <Box mr={{ base: 'auto', sm: 9 }}>
-                <Logo />
+                <Logo
+                  fontSize={{ base: 25, lg: 30 }}
+                  lineHeight={{ base: 7, lg: 8 }}
+                />
               </Box>
 
               <Box display={['none', 'inline']} maxW="500px" w="100%" mr={3}>
@@ -66,7 +69,7 @@ export const Home: React.FC<Props> = () => {
                       color="green"
                     />
                   }
-                  h="35px"
+                  h="100%"
                   bg="transparent"
                 />
               </Box>
