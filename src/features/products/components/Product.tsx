@@ -114,6 +114,7 @@ const ImageModal: FC<ImageModalProps> = (props) => {
 
         <ModalFooter bg="#f1f1f1" justifyContent="space-between">
           <Text>{props.product.name}</Text>
+
           <Text color="#077915" as="b">
             ￥{props.product.price}
           </Text>
