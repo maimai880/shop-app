@@ -7,5 +7,5 @@ vite, ts, chakra ui, recoil, mswなどの技術を使用しています
 
 ## クレジット
 
-アーキテクチャ: [bulletproof-react](https://github.com/alan2207/bulletproof-react)  
+アーキテクチャ・一部のコード: [bulletproof-react](https://github.com/alan2207/bulletproof-react)  
 デザイン・機能等: [react-shopping-cart](https://github.com/sivadass/react-shopping-cart)
