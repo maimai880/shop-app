@@ -8,7 +8,7 @@ import {
   VStack
 } from '@chakra-ui/react'
 import { useProducts } from '@/features/products/api/getProducts'
-import { Product } from '@/features/products/components/Product'
+import { ProductCard } from '@/features/products/components/ProductCard'
 import { useRecoilValue } from 'recoil'
 import { productSearchQueryState } from '@/features/products/states/productSearchQuery'
 
@@ -42,7 +42,7 @@ export const ProductsList = () => {
   return (
     <SimpleGrid columns={[1, 2, 3, 4]} spacing="32px" p={6} maxW="960px">
       {productsQuery.data.map((p) => (
-        <Product data={p} key={p.id} />
+        <ProductCard data={p} key={p.id} />
       ))}
     </SimpleGrid>
   )

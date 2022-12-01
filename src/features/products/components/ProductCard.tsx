@@ -21,7 +21,7 @@ interface Props {
   data: ProductType
 }
 
-export const Product: FC<Props> = ({ data }) => {
+export const ProductCard: FC<Props> = ({ data }) => {
   const {
     getInputProps,
     getIncrementButtonProps,
