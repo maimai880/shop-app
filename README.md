@@ -5,6 +5,11 @@
 reactで作成されたシンプルなショッピング風アプリです  
 vite, ts, chakra ui, recoil, mswなどの技術を使用しています
 
+## セットアップ&起動
+```
+npm i && npx msw init . && npm run dev
+```
+
 ## クレジット
 
 アーキテクチャ・一部のコード: [bulletproof-react](https://github.com/alan2207/bulletproof-react)  
